@@ -3,7 +3,7 @@ import UserMessage from './UserMessage';
 import ArenaResponse from './ArenaResponse';
 import axios from "axios";
 
-const api = axios.create({ baseURL: 'http://localhost:3000', timeout: 60000 });
+const api = axios.create({ baseURL: 'https://ai-chat-arena.onrender.com', timeout: 60000 });
 
 function ThinkingIndicator() {
   return (
