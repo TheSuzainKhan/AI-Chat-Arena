@@ -1,7 +1,10 @@
 import express from 'express';
-import runGraph from "./ai/graph.ai.js"
-import cors from "cors"
-import path from "path"
+import runGraph from "./ai/graph.ai.js";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 app.use(express.json())
@@ -10,14 +13,6 @@ app.use(cors({
     methods: ["GET", "POST"],
     credentials: true,
 }))
-
-
-app.get('/', async (req, res) => {
-
-    const result = await runGraph("Write an code for Factorial function in js")
-
-    res.json(result)
-})
 
 app.post("/invoke", async (req, res) => {
     const input = typeof req.body?.input === "string" ? req.body.input.trim() : ""
