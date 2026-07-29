@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const publicDir = path.join(__dirname, "..", "public");
 
 const app = express();
 app.use(express.json())
@@ -13,6 +14,7 @@ app.use(cors({
     methods: ["GET", "POST"],
     credentials: true,
 }))
+app.use(express.static(publicDir))
 
 app.post("/invoke", async (req, res) => {
     const input = typeof req.body?.input === "string" ? req.body.input.trim() : ""
@@ -38,7 +40,7 @@ app.use((error: Error, _req: express.Request, res: express.Response, _next: expr
 })
 
 app.use('*name', (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "/public/index.html"))
+    res.sendFile(path.join(publicDir, "index.html"))
 })
 
 
