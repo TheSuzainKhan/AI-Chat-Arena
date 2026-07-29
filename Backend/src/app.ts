@@ -1,6 +1,7 @@
 import express from 'express';
 import runGraph from "./ai/graph.ai.js"
 import cors from "cors"
+import path from "path"
 
 const app = express();
 app.use(express.json())
@@ -41,6 +42,9 @@ app.use((error: Error, _req: express.Request, res: express.Response, _next: expr
     return res.status(500).json({ success: false, error: { code: "SERVER_ERROR", message: "Something went wrong. Please try again." } })
 })
 
+app.use('*name', (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "/public/index.html"))
+})
 
 
 export default app;
